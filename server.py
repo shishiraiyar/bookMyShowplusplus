@@ -1,5 +1,5 @@
 from flask import Flask,render_template, request
-import database
+# import database
 
 app = Flask(__name__)
 @app.route("/")
@@ -8,7 +8,9 @@ def login():
 
 @app.route("/home")
 def homepage():
-    return render_template('homepage.html')
+    #QUery
+    movies = [{"name": "omg", "rating": 4, "id": 2}, {"name": "lol", "rating": 3, "id": 3}]
+    return render_template('homepage.html', movies=movies)
 
 @app.route("/map/<movie_ID>")
 def mapPage(movie_ID):
