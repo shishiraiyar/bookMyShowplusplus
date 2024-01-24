@@ -88,6 +88,9 @@ def showTableInfo(db: sqlite3.Connection):
 initDB(db)
 db.commit()
 
+#if main = name
+
+#populate dummy data
 
 showTableInfo(db)
 
