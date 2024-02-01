@@ -35,7 +35,7 @@ def showSeats(show_ID):
     #query from mongoDB
     #display?
     #jinja
-    seatMatrix=[[0,2,0],[4,0,6],[7,8,0]]
+    seatMatrix=[[0,2,0,0],[4,0,6,0],[7,8,0,0]]
     row=len(seatMatrix)
     col=len(seatMatrix[0])
     return render_template('seats.html',seatMatrix=seatMatrix,row=row,col=col)
