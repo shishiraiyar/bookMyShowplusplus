@@ -49,7 +49,7 @@ class Database:
                         ID integer PRIMARY KEY, 
                         firstName TEXT,
                         lastName TEXT, 
-                        phoneNumber INTEGER, 
+                        phoneNumber TEXT, 
                         DOB TEXT
                     )
         """)
@@ -122,6 +122,43 @@ class Database:
         
         cur.close()
 
+    def insertUser(self, userID, fName, lName, pNo, dob):
+        cur = self.db.cursor()
+        cur.execute(f"""INSERT INTO USER (ID, firstName, lastName, phoneNumber, DOB)
+                        VALUES ('{userID}', '{fName}', '{lName}', '{pNo}', '{dob}')""")
+
+        cur.close()
+
+    def insertTheatre(self, name, operatingSince, lat, lng, addr):
+        cur = self.db.cursor()
+        cur.execute(f"""INSERT INTO THEATRE (name, operatingSince, latitude, longitude, address)
+                        VALUES ('{name}', '{operatingSince}', '{lat}', '{lng}', '{addr}')""")
+        cur.close()
+    
+    def insertScreen(self, rows, cols, t_id):
+        cur = self.db.cursor()
+        cur.execute(f"""INSERT INTO SCREEN (rows, columns, theatre_ID)
+                        VALUES ('{rows}', '{cols}', '{t_id}')""")
+        cur.close()
+    
+    def insertMovieShow(self, startTime, duration, movieID, screenID):
+        cur = self.db.cursor()
+        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, duration, movie_ID, screen_ID)
+                        VALUES ('{startTime}', '{duration}', '{movieID}', '{screenID}')""")
+        cur.close()
+
+    def insertTicket(self, showID, userID, row, col, ticketClass):
+        cur = self.db.cursor()
+        cur.execute(f"""INSERT INTO TICKET (show_ID, user_ID, row, column, ticketClass)
+                        VALUES ('{showID}', '{userID}', '{row}', '{col}', '{ticketClass}')""")
+
+        cur.close()
+    
+    def lol(): #static
+        return 0
+        
+
+
 # def fillDummyData(db: sqlite3.Connection):
 #     cur = db.cursor()
 #     res = cur.execute("""
@@ -142,10 +179,17 @@ if __name__ == "__main__":
     # db.close()
     db = Database(":memory:")
     db.createTables()
+    
     db.insertMovie(title="Sadromcom", description="Verycry", cast="crybaby", rating=300, duration=3000)
-    db.genericDisplayTable("MOVIE")
-
+    db.insertUser(userID=300, fName="Tavashi", lName="Kumar", pNo="1234567890", dob="03/09/2003")
+    db.insertTheatre("PVR", "yesterday", 20, 30, "my house")
+    db.insertTheatre("Other PVR", "today", 23, 30, "neighbour house")
+    db.genericDisplayTable("THEATRE")
+    Database.lol()
+    
 
 #populate dummy data
 
 #AUTOCOMMIT 
+    
+# Make Screen WEAK ENTITY and autoincrement screen_no
