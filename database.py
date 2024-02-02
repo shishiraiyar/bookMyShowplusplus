@@ -154,8 +154,31 @@ class Database:
 
         cur.close()
     
-    def lol(): #static
-        return 0
+
+    def populateDummyData(self):
+        self.insertMovie("3 idiots", "Engineering", "Amir Khan", 9.3, 120)
+        self.insertMovie("4 idiots", "More idiots more better", "Srk", 9.4, 180)
+        self.insertMovie("Oppenheimer", "bomb", "Robert Oppenheimer", 9.5, 190)
+        self.insertMovie("Barbie", "pink", "girl", 9.45, 130)
+
+        self.insertTheatre("PVR", "Yesterday", 12.97, 77.59,  "R R Nagar")
+        self.insertTheatre("Inox", "Tomorrow", 12.98, 77.60,  "Rajaji Nagar")
+
+        self.insertScreen(rows=10, cols=10, t_id=1)
+        self.insertScreen(rows=7, cols=6, t_id=1)
+        self.insertScreen(rows=9, cols=9, t_id=2)
+        self.insertScreen(rows=6, cols=6, t_id=2)
+
+        self.insertUser(154, "Library", "Table", "1234567890", "12/12/2012")
+        self.insertUser(178, "Wiggly", "Bunny", "3003003003", "11/11/2011")
+
+        self.insertMovieShow(startTime=1706868822, duration=300, movieID=2, screenID=1)
+        self.insertMovieShow(startTime=1706878822, duration=300, movieID=3, screenID=2)
+        self.insertMovieShow(startTime=1706978822, duration=250, movieID=4, screenID=2)
+        self.insertMovieShow(startTime=1706978822, duration=200, movieID=4, screenID=1)
+
+        self.insertTicket(showID=1, userID=154, row=1, col=1, ticketClass='vip')
+        self.insertTicket(showID=3, userID=178, row=3, col=2, ticketClass='vip')
         
 
 
@@ -180,13 +203,17 @@ if __name__ == "__main__":
     db = Database(":memory:")
     db.createTables()
     
-    db.insertMovie(title="Sadromcom", description="Verycry", cast="crybaby", rating=300, duration=3000)
-    db.insertUser(userID=300, fName="Tavashi", lName="Kumar", pNo="1234567890", dob="03/09/2003")
-    db.insertTheatre("PVR", "yesterday", 20, 30, "my house")
-    db.insertTheatre("Other PVR", "today", 23, 30, "neighbour house")
-    db.genericDisplayTable("THEATRE")
-    Database.lol()
-    
+    # db.insertMovie(title="Sadromcom", description="Verycry", cast="crybaby", rating=300, duration=3000)
+    # db.insertUser(userID=300, fName="Tavashi", lName="Kumar", pNo="1234567890", dob="03/09/2003")
+    # db.insertTheatre("PVR", "yesterday", 20, 30, "my house")
+    # db.insertTheatre("Other PVR", "today", 23, 30, "neighbour house")
+    db.populateDummyData()
+    for table in db.getTableNames():
+        print(table)
+        db.genericDisplayTable(table)
+        print("*******************************\n\n")
+        
+
 
 #populate dummy data
 
