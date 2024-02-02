@@ -115,6 +115,12 @@ class Database:
             print(row)
         return
 
+    def displayDatabase(self):
+        for table in self.getTableNames():
+            print(table)
+            db.genericDisplayTable(table)
+            print("********************************************\n\n")
+
     def insertMovie(self, title, description, cast, rating, duration):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO MOVIE (title, description, cast, rating, duration) 
@@ -181,37 +187,16 @@ class Database:
         self.insertTicket(showID=3, userID=178, row=3, col=2, ticketClass='vip')
         
 
-
-# def fillDummyData(db: sqlite3.Connection):
-#     cur = db.cursor()
-#     res = cur.execute("""
-#     INSERT INTO MOVIE  (title, description, cast, rating, duration) 
-#     VALUES ("lol", "very nice", "tavashi, tree, horse", 4, 180),
-#             ("omg", "very good", "rakshita, house, car", 3, 100),
-#             ("damn", "ok", "thatguy, tree, horse", 1, 180) """)
-    
-
 if __name__ == "__main__":
-    # initDB(db)
-    # fillDummyData(db)
-    # db.commit()
-    # showTableInfo(db)
-    # genericDisplayTable(db, "MOVIE")
-    # genericInsertData(db, "MOVIE", ("jab we met", "very nice", "shahid kapoor, kareena kappur", 1, 90))
 
-    # db.close()
     db = Database(":memory:")
     db.createTables()
     
-    # db.insertMovie(title="Sadromcom", description="Verycry", cast="crybaby", rating=300, duration=3000)
-    # db.insertUser(userID=300, fName="Tavashi", lName="Kumar", pNo="1234567890", dob="03/09/2003")
-    # db.insertTheatre("PVR", "yesterday", 20, 30, "my house")
-    # db.insertTheatre("Other PVR", "today", 23, 30, "neighbour house")
     db.populateDummyData()
-    for table in db.getTableNames():
-        print(table)
-        db.genericDisplayTable(table)
-        print("*******************************\n\n")
+
+    db.displayDatabase()
+
+
         
 
 
