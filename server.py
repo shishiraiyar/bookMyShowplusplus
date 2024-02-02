@@ -16,7 +16,7 @@ def homepage():
 def mapPage(movie_ID):
     #server queries for locations that play this movie, and store in location_data
     # jinja
-    return render_template('mapPage.html', location_data) 
+    return render_template('map.html', location_data) 
 
 @app.route("/shows") #/shows?theatre=3231&movie=8348
 def showPage():
