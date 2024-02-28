@@ -5,10 +5,10 @@ import sqlite3
 # def deleteDB(db: sqlite3.Connection)
 
 
-    
+
 class Database:
     def __init__(self, filename):
-        self.db = sqlite3.connect(filename)
+        self.db = sqlite3.connect(filename,check_same_thread=False)
     
     def createTables(self):
         cur = self.db.cursor()
@@ -118,49 +118,70 @@ class Database:
     def displayDatabase(self):
         for table in self.getTableNames():
             print(table)
-            db.genericDisplayTable(table)
+            databej.genericDisplayTable(table)
             print("********************************************\n\n")
 
     def insertMovie(self, title, description, cast, rating, duration):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO MOVIE (title, description, cast, rating, duration) 
                         VALUES ('{title}', '{description}', '{cast}', '{rating}', '{duration}')""")
-        
+        self.db.commit()
         cur.close()
 
     def insertUser(self, userID, fName, lName, pNo, dob):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO USER (ID, firstName, lastName, phoneNumber, DOB)
                         VALUES ('{userID}', '{fName}', '{lName}', '{pNo}', '{dob}')""")
-
+        self.db.commit()
         cur.close()
 
     def insertTheatre(self, name, operatingSince, lat, lng, addr):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO THEATRE (name, operatingSince, latitude, longitude, address)
                         VALUES ('{name}', '{operatingSince}', '{lat}', '{lng}', '{addr}')""")
+        self.db.commit()
         cur.close()
     
     def insertScreen(self, rows, cols, t_id):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO SCREEN (rows, columns, theatre_ID)
                         VALUES ('{rows}', '{cols}', '{t_id}')""")
+        self.db.commit()
         cur.close()
     
     def insertMovieShow(self, startTime, duration, movieID, screenID):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO MOVIESHOW (startTime, duration, movie_ID, screen_ID)
                         VALUES ('{startTime}', '{duration}', '{movieID}', '{screenID}')""")
+        self.db.commit()
         cur.close()
 
     def insertTicket(self, showID, userID, row, col, ticketClass):
         cur = self.db.cursor()
         cur.execute(f"""INSERT INTO TICKET (show_ID, user_ID, row, column, ticketClass)
                         VALUES ('{showID}', '{userID}', '{row}', '{col}', '{ticketClass}')""")
-
+        self.db.commit()
         cur.close()
     
+    def getMoviesList(self):
+        cur = self.db.cursor()
+        cur.execute("""SELECT * FROM MOVIE""")
+        rows = cur.fetchall()
+        movies=[]
+        for row in rows:
+            movie = {
+                'ID': row[0],
+                'title': row[1],
+                'description':row[2],
+                'cast':row[3],
+                'rating':row[4],
+                'duration':row[5]
+            }
+            movies.append(movie)
 
+        cur.close()
+        return movies
+        
     def populateDummyData(self):
         self.insertMovie("3 idiots", "Engineering", "Amir Khan", 9.3, 120)
         self.insertMovie("4 idiots", "More idiots more better", "Srk", 9.4, 180)
@@ -189,19 +210,12 @@ class Database:
 
 if __name__ == "__main__":
 
-    db = Database(":memory:")
-    db.createTables()
+    databej = Database("data.db")
+    # databej.createTables()
     
-    db.populateDummyData()
+    # databej.populateDummyData()
 
-    db.displayDatabase()
+    databej.displayDatabase()
 
-
-        
-
-
-#populate dummy data
-
-#AUTOCOMMIT 
-    
-# Make Screen WEAK ENTITY and autoincrement screen_no
+    movies=databej.getMoviesList()
+    print(movies)

@@ -7,7 +7,10 @@
   </head>
   <body>
     {% for movie in movies %}
-      <button id={{movie.id}} class="movies">{{movie.name}} is rated {{movie.rating}}</button>
+      <div><button id={{movie.ID}} class="movies">{{movie.title}}</button></div>
+      <h4>Cast: {{movie.cast}}</h4>
+      <h5>Description: {{movie.description}}</h5>
+      <h6>Duration: {{movie.duration}} minutes</h6> <h6>Rating: {{movie.rating}} minutes</h6>
     {% endfor %}
     <script src="..\static\js\homepage.js"></script>
   </body>

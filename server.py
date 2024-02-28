@@ -1,15 +1,17 @@
 from flask import Flask,render_template, request
-# import database
+from database import Database
 
 app = Flask(__name__)
+RDB = Database("data.db")
+
 @app.route("/")
 def login():
     return render_template('login.html')
 
 @app.route("/home")
 def homepage():
-    #QUery
-    movies = [{"name": "omg", "rating": 4, "id": 2}, {"name": "lol", "rating": 3, "id": 3}]
+    movies =RDB.getMoviesList() #list of dictionary ; each dictionary is a movie
+    # print(movies)
     return render_template('homepage.html', movies=movies)
 
 @app.route("/map/<movie_ID>")
