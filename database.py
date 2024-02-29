@@ -181,6 +181,30 @@ class Database:
 
         cur.close()
         return movies
+    
+    def getTheatres(self,mID):
+        cur=self.db.cursor()
+        cur.execute("""SELECT * 
+                    FROM THEATRE AS t
+                    WHERE t.ID IN(
+                    SELECT theatre_ID
+                    FROM (SCREEN AS S JOIN MOVIESHOW ON S.ID=screen_ID)
+                    WHERE movie_ID=?
+                    )""",(mID,))
+        rows=cur.fetchall()
+        theatres=[]
+        for row in rows:
+            theatre = {
+                'ID':row[0],
+                'name':row[1],
+                'operatingSince':row[2],
+                'latitude':row[3],
+                'longitude':row[4],
+                'address':row[5]
+            }
+            theatres.append(theatre)
+        cur.close()
+        return theatres
         
     def populateDummyData(self):
         self.insertMovie("3 idiots", "Engineering", "Amir Khan", 9.3, 120)
@@ -202,7 +226,7 @@ class Database:
         self.insertMovieShow(startTime=1706868822, duration=300, movieID=2, screenID=1)
         self.insertMovieShow(startTime=1706878822, duration=300, movieID=3, screenID=2)
         self.insertMovieShow(startTime=1706978822, duration=250, movieID=4, screenID=2)
-        self.insertMovieShow(startTime=1706978822, duration=200, movieID=4, screenID=1)
+        self.insertMovieShow(startTime=1706978822, duration=200, movieID=4, screenID=4)
 
         self.insertTicket(showID=1, userID=154, row=1, col=1, ticketClass='vip')
         self.insertTicket(showID=3, userID=178, row=3, col=2, ticketClass='vip')
@@ -215,7 +239,8 @@ if __name__ == "__main__":
     
     # databej.populateDummyData()
 
-    databej.displayDatabase()
+    # databej.displayDatabase()
+    theatres=databej.getTheatres(4)
+    print(theatres)
 
-    movies=databej.getMoviesList()
-    print(movies)
+    

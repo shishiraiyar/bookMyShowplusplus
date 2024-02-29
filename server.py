@@ -16,10 +16,8 @@ def homepage():
 
 @app.route("/map/<movie_ID>")
 def mapPage(movie_ID):
-    #server queries for locations, and theatre id that play this movie, and store in location_data. also add movie id to each object
-    # jinja
-    location_data=[{"lat":124, "long":567,"t_id":1,"t_name":"shishu theatres"}]
-    return render_template('map.html', location_data=location_data)
+    theatres=RDB.getTheatres(movie_ID)
+    return render_template('map.html', theatres=theatres)
 
 @app.route("/shows") #/shows?theatre=3231&movie=8348
 def showPage():

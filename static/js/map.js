@@ -1,4 +1,4 @@
-elements = document.getElementsByClassName("locations");
+elements = document.getElementsByClassName("theatres");
 for (let i = 0; i < elements.length; i++) {
   console.log(elements[i]);
   elements[i].addEventListener("click", () => {

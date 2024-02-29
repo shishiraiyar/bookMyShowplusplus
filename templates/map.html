@@ -6,8 +6,8 @@
     <title>Document</title>
   </head>
   <body>
-    {% for loc in location_data %}
-    <button id="{{loc.t_id}}" class="locations">{{loc.t_name}}</button>
+    {% for theatre in theatres %}
+    <button id="{{theatre.ID}}" class="theatres">{{theatre.name}}</button>
     {% endfor %}
     <script src="..\static\js\map.js"></script>
   </body>
