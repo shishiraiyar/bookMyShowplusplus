@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
-
-  </body>
+  <body></body>
 </html>
 
 <!DOCTYPE html>
@@ -22,16 +20,19 @@
     <script>
       var theatresList = {{theatres| tojson}}
     </script>
-    
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
-    <script type="module" src="../static/js/map.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../static/js/map.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <h1>LifeBuoy</h1>
-   
+
     <div id="map"></div>
 
     <!-- 
@@ -44,7 +45,5 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ5GpBk7l1YYN4-Ay7oT1ux5WFH2y60wk&callback=initMap&v=weekly"
       defer
     ></script>
-
-
   </body>
 </html>
