@@ -23,11 +23,9 @@ def mapPage(movie_ID):
 def showPage():
     movie_id = request.args.get('movie')
     theatre_id = request.args.get('theatre')
-    print(movie_id)
-    print(theatre_id)
-    #query for list of shows in the given theatre for the given movie
-    #jinja
-    show_data=[{"show_id":12345}]
+    # print(movie_id)
+    # print(theatre_id)
+    show_data=RDB.getMovieShows(movie_id,theatre_id)
     return render_template('shows.html',show_data=show_data)
 
 @app.route("/seats/<show_ID>")
