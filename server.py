@@ -1,8 +1,10 @@
 from flask import Flask,render_template, request
 from database import Database
+from mongo import MongoDatabase
 
 app = Flask(__name__)
 RDB = Database("data.db")
+NRDB = MongoDatabase()
 
 @app.route("/")
 def login():
@@ -30,10 +32,11 @@ def showPage():
 
 @app.route("/seats/<show_ID>")
 def showSeats(show_ID):
-    #query from mongoDB
-    #display?
-    #jinja
+    info=NRDB.getSeats(show_ID)
+    # print(info)
     seatMatrix=[[0,2,0,0],[4,0,6,0],[7,8,0,0]]
+    # seatMatrix = info["seatMatrix"]
+    print(seatMatrix)
     row=len(seatMatrix)
     col=len(seatMatrix[0])
     return render_template('seats.html',seatMatrix=seatMatrix,row=row,col=col)
