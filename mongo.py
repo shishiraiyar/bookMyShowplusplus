@@ -9,6 +9,7 @@ class MongoDatabase:
         self.client = MongoClient(url, server_api=ServerApi('1'))
         self.db = self.client["MovieApp"] 
         self.col = self.db["seats"]
+        print("INITTED")
 
     def listDatabases(self):
         print(self.client.list_database_names())
