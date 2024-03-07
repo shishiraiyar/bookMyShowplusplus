@@ -4,14 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css"/>
+    
   </head>
   <body>
+    <div class="flexbox">
     {% for movie in movies %}
-      <div><button id={{movie.ID}} class="movies">{{movie.title}}</button></div>
-      <h4>Cast: {{movie.cast}}</h4>
-      <h5>Description: {{movie.description}}</h5>
-      <h6>Duration: {{movie.duration}} minutes</h6> <h6>Rating: {{movie.rating}} minutes</h6>
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src={{"../static/img/" ~  movie.ID ~ ".png"}}  alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{movie.title}}</h5>
+        <p class="card-text"> Description: {{movie.description}} <br>
+          Cast: {{movie.cast}} <br>
+          Description: {{movie.description}} <br>
+          Duration: {{movie.duration}} <br>
+          Rating: {{movie.rating}}
+        </p>
+ 
+        <button  class="btn btn-primary bookticket"  id={{movie.ID}}>Book tickets</button>
+      </div>
+    </div>
+
+
+      <!-- <div class="movie-details">
+        <h2 id={{movie.ID}} class="movie-title">{{movie.title}}</h2>
+
+        <p>Cast: {{movie.cast}}
+        Description: {{movie.description}}
+        Duration: {{movie.duration}} minutes 
+        Rating: {{movie.rating}} minutes</p>
+      </div> -->
     {% endfor %}
+    </div>
     <script src="..\static\js\homepage.js"></script>
   </body>
 </html>
