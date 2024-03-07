@@ -210,7 +210,7 @@ class Database:
     def getMovieShows(self,mID,tID):
         cur=self.db.cursor()
         query = """
-                SELECT MOVIESHOW.ID, MOVIESHOW.startTime, MOVIESHOW.duration, MOVIESHOW.screen_ID
+                SELECT MOVIESHOW.ID, MOVIESHOW.startTime, MOVIESHOW.endTime, MOVIESHOW.date, MOVIESHOW.screen_ID
                 FROM MOVIESHOW
                 INNER JOIN SCREEN ON MOVIESHOW.screen_ID = SCREEN.ID
                 WHERE MOVIESHOW.movie_ID = ? AND SCREEN.theatre_ID = ?
@@ -222,8 +222,9 @@ class Database:
             show = {
                 'ID':row[0],
                 'startTime':row[1],
-                'duration':row[2],
-                'screenID':row[3],
+                'endTime':row[2],
+                'date':row[3],
+                'screenID':row[4],
             }
             shows.append(show)
         cur.close()
@@ -259,12 +260,13 @@ class Database:
 if __name__ == "__main__":
 
     databej = Database("data.db")
-    databej.createTables()
+    # databej.createTables()
     
-    databej.populateDummyData()
+    # databej.populateDummyData()
 
-    databej.displayDatabase()
-    # shows=databej.getMovieShows(2,1)
-    # print(shows)
+    # databej.displayDatabase()
+    print(databej.getTheatres(4))
+    shows=databej.getMovieShows(2,1)
+    print(shows)
 
     
