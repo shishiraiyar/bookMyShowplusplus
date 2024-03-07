@@ -56,8 +56,8 @@ if __name__ == "__main__":
     # database.update(1,matrix)
 
     # fetching seat info given a particular showID
-    info = database.getSeats(3)
-    print(info["seatMatrix"])
+    # info = database.getSeats(3)
+    # print(info["seatMatrix"])
 
     
 

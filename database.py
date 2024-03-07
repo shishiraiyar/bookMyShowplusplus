@@ -1,5 +1,5 @@
 import sqlite3
-
+from mongo import MongoDatabase
 # db = sqlite3.connect("data.db")
 
 # def deleteDB(db: sqlite3.Connection)
@@ -9,7 +9,7 @@ import sqlite3
 class Database:
     def __init__(self, filename):
         self.db = sqlite3.connect(filename,check_same_thread=False)
-    
+        self.NRDB = MongoDatabase()
     def createTables(self):
         cur = self.db.cursor()
         cur.execute("""
@@ -152,9 +152,26 @@ class Database:
     
     def insertMovieShow(self, startTime, endTime, date, movieID, screenID):
         cur = self.db.cursor()
-        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, endTime, date , movie_ID, screen_ID)
+        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, endTime, date, movie_ID, screen_ID)
                         VALUES ('{startTime}', '{endTime}', '{date}','{movieID}', '{screenID}')""")
         self.db.commit()
+
+        showID = cur.lastrowid
+        print(showID)
+
+        cur.execute("""SELECT rows, columns
+                    FROM SCREEN
+                    WHERE ID=?""", (screenID,))
+        data = cur.fetchone()
+        rows = data[0]
+        cols = data[1]
+        seats = [[0 for _ in range(cols)] for _ in range(rows)]
+
+        # Print the 2D array
+        for row in seats:
+            print(row)
+
+        self.NRDB.insert(showID,seats)
         cur.close()
 
     def insertTicket(self, showID, userID, row, col, ticketClass):
@@ -295,9 +312,9 @@ class Database:
 if __name__ == "__main__":
 
     databej = Database("data.db")
-    # databej.createTables()
+    databej.createTables()
     
-    # databej.populateDummyData()
+    databej.populateDummyData()
 
     databej.displayDatabase()
     # print(databej.getTheatres(4))
