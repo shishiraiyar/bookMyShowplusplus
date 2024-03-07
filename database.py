@@ -183,6 +183,41 @@ class Database:
         cur.close()
         return movies
     
+    def getAllTheatres(self):
+        cur=self.db.cursor()
+        cur.execute("""SELECT * 
+                    FROM THEATRE""")
+        rows=cur.fetchall()
+        theatres=[]
+        for row in rows:
+            theatre = {
+                'ID':row[0],
+                'name':row[1],
+                'operatingSince':row[2],
+                'latitude':row[3],
+                'longitude':row[4],
+                'address':row[5]
+            }
+            theatres.append(theatre)
+        cur.close()
+        return theatres
+    
+    def getScreens(self):
+        cur=self.db.cursor()
+        cur.execute("""SELECT S.ID,T.name,T.ID
+                    FROM (SCREEN AS S JOIN THEATRE AS T ON S.theatre_ID=T.ID) """)
+        rows=cur.fetchall()
+        screens=[]
+        for row in rows:
+            screen = {
+                'SID':row[0],
+                'theatre_name':row[1],
+                'TID':row[2]
+            }
+            screens.append(screen)
+        cur.close()
+        return screens
+    
     def getTheatres(self,mID):
         cur=self.db.cursor()
         cur.execute("""SELECT * 
@@ -264,9 +299,11 @@ if __name__ == "__main__":
     
     # databej.populateDummyData()
 
-    # databej.displayDatabase()
-    print(databej.getTheatres(4))
-    shows=databej.getMovieShows(2,1)
-    print(shows)
+    databej.displayDatabase()
+    # print(databej.getTheatres(4))
+    # shows=databej.getMovieShows(2,1)
+    # print(shows)
+    # print(databej.getAllTheatres())
+    # print(databej.getScreens())
 
     

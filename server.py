@@ -11,6 +11,66 @@ print("Lamao")
 def login():
     return render_template('login.html')
 
+@app.route("/admin")
+def adminLogin():
+    theatres = RDB.getAllTheatres()
+    movies = RDB.getMoviesList()
+    screens=RDB.getScreens()
+    return render_template('adminPage.html',theatres=theatres,movies=movies,screens=screens)
+
+@app.route("/addMovie", methods=["POST"])
+def addMovie():
+    #send to db
+    name = request.form.get("name")
+    description = request.form.get("description") 
+    cast = request.form.get("cast") 
+    rating = float(request.form.get("rating")) 
+    duration = int(request.form.get("duration") )
+    print(name+" "+description+" "+cast)
+    print(rating)
+    print(duration)
+    RDB.insertMovie(name,description,cast,rating,duration)
+    return ('',204)
+
+@app.route("/addScreen", methods=["POST"])
+def addScreen():
+    #send to db
+    rows = request.form.get("rows")
+    cols = request.form.get("cols") 
+    t_id = int(request.form.get("theatre")) 
+    print(rows+" "+cols)
+    print(t_id)
+    RDB.insertScreen(rows,cols,t_id)
+    
+    return ('',204)
+
+@app.route("/addMovieShow", methods=["POST"])
+def addMovieShow():
+    #send to db
+    startTime = request.form.get("startTime")
+    endTime = request.form.get("endTime") 
+    date = request.form.get("date") 
+    movie = int(request.form.get("movie")) 
+    screen = int(request.form.get("screen") )
+    print(startTime+" "+endTime+" "+date)
+    print(movie)
+    print(screen)
+    RDB.insertMovieShow(startTime,endTime,date,movie,screen)
+    
+    return ('',204)
+
+@app.route("/addTheatre", methods=["POST"])
+def addTheatre():
+    #send to db
+    name = request.form.get("name")
+    operatingSince = request.form.get("operatingSince") 
+    latitude = request.form.get("latitude") 
+    longitude = request.form.get("longitude")
+    address = request.form.get("address") 
+    print(name+" "+operatingSince+" "+latitude+" "+longitude+" "+address)
+    RDB.insertTheatre(name,operatingSince,latitude,longitude,address)
+    return ('',204)
+
 @app.route("/home")
 def homepage():
     movies =RDB.getMoviesList() #list of dictionary ; each dictionary is a movie
