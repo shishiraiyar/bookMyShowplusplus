@@ -35,8 +35,9 @@ class Database:
         cur.execute("""       
                     CREATE TABLE MOVIESHOW (
                         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        startTime INTEGER,
-                        duration INTEGER,
+                        startTime TEXT,
+                        endTime TEXT,
+                        date TEXT,
                         movie_ID INTEGER,
                         screen_ID INTEGER,
                         FOREIGN KEY (movie_ID) REFERENCES MOVIE (ID),
@@ -149,10 +150,10 @@ class Database:
         self.db.commit()
         cur.close()
     
-    def insertMovieShow(self, startTime, duration, movieID, screenID):
+    def insertMovieShow(self, startTime, endTime, date, movieID, screenID):
         cur = self.db.cursor()
-        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, duration, movie_ID, screen_ID)
-                        VALUES ('{startTime}', '{duration}', '{movieID}', '{screenID}')""")
+        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, endTime, date , movie_ID, screen_ID)
+                        VALUES ('{startTime}', '{endTime}', '{date}','{movieID}', '{screenID}')""")
         self.db.commit()
         cur.close()
 
@@ -246,10 +247,10 @@ class Database:
         self.insertUser(154, "Library", "Table", "1234567890", "12/12/2012")
         self.insertUser(178, "Wiggly", "Bunny", "3003003003", "11/11/2011")
 
-        self.insertMovieShow(startTime=1706868822, duration=300, movieID=2, screenID=1)
-        self.insertMovieShow(startTime=1706878822, duration=300, movieID=2, screenID=2)
-        self.insertMovieShow(startTime=1706978822, duration=250, movieID=4, screenID=3)
-        self.insertMovieShow(startTime=1706978822, duration=200, movieID=4, screenID=4)
+        self.insertMovieShow(startTime="12:30", endTime="13:45", date="2024-03-08", movieID=2, screenID=1)
+        self.insertMovieShow(startTime="13:45", endTime="14:30", date="2024-05-03", movieID=2, screenID=2)
+        self.insertMovieShow(startTime="14:30", endTime="15:45", date="2024-03-08", movieID=4, screenID=3)
+        self.insertMovieShow(startTime="15:45", endTime="16:30", date="2024-05-03", movieID=4, screenID=4)
 
         self.insertTicket(showID=1, userID=154, row=1, col=1, ticketClass='vip')
         self.insertTicket(showID=3, userID=178, row=3, col=2, ticketClass='vip')
@@ -258,12 +259,12 @@ class Database:
 if __name__ == "__main__":
 
     databej = Database("data.db")
-    # databej.createTables()
+    databej.createTables()
     
-    # databej.populateDummyData()
+    databej.populateDummyData()
 
-    # databej.displayDatabase()
-    shows=databej.getMovieShows(2,1)
-    print(shows)
+    databej.displayDatabase()
+    # shows=databej.getMovieShows(2,1)
+    # print(shows)
 
     
