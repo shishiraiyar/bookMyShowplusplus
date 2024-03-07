@@ -21,7 +21,7 @@ body{
       border-radius: 30px;
       border: 2px aliceblue solid;
   
-  
+
   }
   
 
@@ -35,6 +35,25 @@ body{
     border-radius: 6px;
     padding:0 0 0 10px;
     border: 2px white;
+    
   
   }
   
+
+.card-img-top{
+  width: 100%;
+
+}
+
+.flexbox{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: space-evenly;
+}
+
+.card {
+  flex: 1;
+  min-width: 300px;
+
+ }

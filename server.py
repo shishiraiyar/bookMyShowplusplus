@@ -6,7 +6,6 @@ app = Flask(__name__)
 RDB = Database("data.db")
 NRDB = MongoDatabase()
 print("Lamao")
-print(NRDB.getSeats(1))
 
 @app.route("/")
 def login():
@@ -49,4 +48,4 @@ def bookTicket():
     # mark the seat as booked in mongo
     # return success popup or something
 
-app.run()
+app.run(host="0.0.0.0", port=5000, debug=True)

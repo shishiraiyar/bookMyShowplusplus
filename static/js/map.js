@@ -10,7 +10,7 @@ const pes = {lat:12.934833162232344, lng:77.53507211285884}
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     mapTypeId: "roadmap",
-    zoom: 13,
+    zoom: 11,
     center: pes,
     mapId: "6d77c92efad4c954"
   });
@@ -72,7 +72,7 @@ function createInfoWindow(marker, theatre){
   <p>Name: ${theatre['name']}</p>
   <p>Address: ${theatre['address']}</p>
   <p>Op since: ${theatre['operatingSince']}</p>
-  <a href='/shows?theatre=${theatre['ID']}&movie=${movieID}'>Book tickets here</a>
+  <a href='/shows?theatre=${theatre['ID']}&movie=${movieID}' class="btn btn-primary" style="margin-bottom:5px; margin-right:5px">Book tickets here</a>
   </div>`
 
   const infoWindow = new google.maps.InfoWindow({
