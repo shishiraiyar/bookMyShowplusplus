@@ -5,3 +5,8 @@ document.getElementById("btn").addEventListener("click", async () => {
   console.log(data);
   //   document.getElementById("demo").innerHTML = response;
 });
+
+// document.getElementById("signUp").addEventListener("click", async () => {
+//   console.log("hjdbjdv");
+//   window.location.href = "/signUp";
+// });

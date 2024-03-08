@@ -9,9 +9,31 @@
     <div>
       <a href="/admin">Admin Login</a>
     </div>
+    <h3>LOGIN</h3>
     <div>
-      <a href="/home">User login</a>
+      <form action="/validateUser" method="post">
+        <label for="email">Enter Email:</label>
+        <input type="text" id="email" name="email" /><br /><br />
+
+        <label for="pwd">Enter Password:</label><br />
+        <input type="password" id="pwd" name="pwd" />
+
+        <input type="submit" value="Submit" />
+      </form>
     </div>
+    <h3>SIGN UP</h3>
+    <form action="/signUp" method="post">
+      <label for="email">Enter Email:</label>
+      <input type="text" id="email" name="email" /><br /><br />
+
+      <label for="username">Enter User Name:</label>
+      <input type="text" id="username" name="username" /><br /><br />
+
+      <label for="pwd">Enter Password:</label><br />
+      <input type="password" id="pwd" name="pwd" />
+
+      <input type="submit" value="Submit" />
+    </form>
 
     <script src="../static/js/login.js"></script>
   </body>

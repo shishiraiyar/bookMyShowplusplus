@@ -9,6 +9,7 @@ class MongoDatabase:
         self.client = MongoClient(url, server_api=ServerApi('1'))
         self.db = self.client["MovieApp"] 
         self.col = self.db["seats"]
+        self.col2 = self.db["passwords"]
         print("INITTED")
 
     def listDatabases(self):
@@ -43,13 +44,29 @@ class MongoDatabase:
         query={"_id":showID}
         doc = self.col.find_one(query)
         return doc
+    
+    def validate(self,email,password):
+        query={"_id":email}
+        doc = self.col2.find_one(query)
+        if doc["password"]==password:
+            return True
+        else:
+            return False
+        
+    def addUser(self,email,username,password):
+        doc = {"_id":email,"username":username,"password":password}
+        self.col2.insert_one(doc)
+        
 
 if __name__ == "__main__":
     # Cluster-> Database -> Collection -> Document
 
     database = MongoDatabase()
     # database.addDummyData()
-    database.displayDatabase()
+    database.addUser("tavashikumar.cs21@rvce.edu.in","tavashi","hello")
+    print(database.validate("tavashikumar.cs21@rvce.edu.in","hello"))
+    print(database.validate("tavashikumar.cs21@rvce.edu.in","hellorwrw"))
+    # database.displayDatabase()
 
     # update seat for a given show
     # matrix=[[1,1,1],[1,0,1],[0,0,0]]

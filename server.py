@@ -20,7 +20,6 @@ def adminLogin():
 
 @app.route("/addMovie", methods=["POST"])
 def addMovie():
-    #send to db
     name = request.form.get("name")
     description = request.form.get("description") 
     cast = request.form.get("cast") 
@@ -34,7 +33,6 @@ def addMovie():
 
 @app.route("/addScreen", methods=["POST"])
 def addScreen():
-    #send to db
     rows = request.form.get("rows")
     cols = request.form.get("cols") 
     t_id = int(request.form.get("theatre")) 
@@ -46,7 +44,6 @@ def addScreen():
 
 @app.route("/addMovieShow", methods=["POST"])
 def addMovieShow():
-    #send to db
     startTime = request.form.get("startTime")
     endTime = request.form.get("endTime") 
     date = request.form.get("date") 
@@ -61,7 +58,6 @@ def addMovieShow():
 
 @app.route("/addTheatre", methods=["POST"])
 def addTheatre():
-    #send to db
     name = request.form.get("name")
     operatingSince = request.form.get("operatingSince") 
     latitude = request.form.get("latitude") 
@@ -69,6 +65,29 @@ def addTheatre():
     address = request.form.get("address") 
     print(name+" "+operatingSince+" "+latitude+" "+longitude+" "+address)
     RDB.insertTheatre(name,operatingSince,latitude,longitude,address)
+    return ('',204)
+
+@app.route("/validateUser", methods=["POST"])
+def validateUser():
+    #send to db
+    email = request.form.get("email")
+    password = request.form.get("pwd") 
+    print(email)
+    print(password)
+    result = NRDB.validate(email,password)
+    if(result==True):
+        return homepage()
+    else:
+        return ('',204)
+
+@app.route("/signUp", methods=["POST"])
+def signUp():
+    #send to db
+    email = request.form.get("email")
+    username= request.form.get("username")
+    password = request.form.get("pwd") 
+    print(email+" "+username+" "+password)
+    NRDB.addUser(email,username,password)
     return ('',204)
 
 @app.route("/home")
