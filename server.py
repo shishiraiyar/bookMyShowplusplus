@@ -11,12 +11,31 @@ print("Lamao")
 def login():
     return render_template('login.html')
 
-@app.route("/admin")
+@app.route("/adminLogin")
 def adminLogin():
+    return render_template('adminLogin.html')
+
+@app.route("/admin")
+def adminPage():
     theatres = RDB.getAllTheatres()
     movies = RDB.getMoviesList()
     screens=RDB.getScreens()
     return render_template('adminPage.html',theatres=theatres,movies=movies,screens=screens)
+
+@app.route("/validateAdmin", methods=["POST"])
+def validateAdmin():
+    #send to db
+    email = request.form.get("email")
+    password = request.form.get("pwd") 
+    print(email)
+    print(password)
+    result = NRDB.validateAdmin(email,password)
+    print(result)
+    if(result==True):
+        return adminPage()
+    else:
+        return ('',204)
+    # return ('',204)
 
 @app.route("/addMovie", methods=["POST"])
 def addMovie():

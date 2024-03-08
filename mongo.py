@@ -10,6 +10,7 @@ class MongoDatabase:
         self.db = self.client["MovieApp"] 
         self.col = self.db["seats"]
         self.col2 = self.db["passwords"]
+        self.col3 = self.db["admins"]
         print("INITTED")
 
     def listDatabases(self):
@@ -53,6 +54,16 @@ class MongoDatabase:
         else:
             return False
         
+    def validateAdmin(self,email,password):
+        query={"_id":email}
+        doc = self.col3.find_one(query)
+        print(password)
+        if doc and doc["password"]==password:
+            print("hhhh")
+            return True
+        else:
+            return False
+        
     def addUser(self,email,username,password):
         doc = {"_id":email,"username":username,"password":password}
         self.col2.insert_one(doc)
@@ -63,9 +74,12 @@ if __name__ == "__main__":
 
     database = MongoDatabase()
     # database.addDummyData()
-    database.addUser("tavashikumar.cs21@rvce.edu.in","tavashi","hello")
-    print(database.validate("tavashikumar.cs21@rvce.edu.in","hello"))
-    print(database.validate("tavashikumar.cs21@rvce.edu.in","hellorwrw"))
+    # database.addUser("tavashikumar.cs21@rvce.edu.in","tavashi","hello")
+    # print(database.validate("tavashikumar.cs21@rvce.edu.in","hello"))
+    # print(database.validate("tavashikumar.cs21@rvce.edu.in","hellorwrw"))
+    print(database.validateAdmin("tavashi123@gmail.com","hello123"))
+
+
     # database.displayDatabase()
 
     # update seat for a given show
