@@ -5,7 +5,7 @@
  */
 /* Set the size of the div element that contains the map */
 body{
-    background-color: #322a2a;
+    /* background-color:antiquewhite; */
     text-align: center;
   }
   
@@ -57,3 +57,21 @@ body{
   min-width: 300px;
 
  }
+
+
+table{
+width: 100%;
+border-collapse: collapse;
+margin-left: auto;
+margin-right: auto;
+}
+
+table, th, td{
+  border: 2px solid black;
+}
+
+/* tr:nth-child(even) {background-color: #f2f2f2;} */
+
+tr:hover{
+  background-color: rgb(204, 204, 204);
+}

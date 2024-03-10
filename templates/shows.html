@@ -3,12 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/styles.css">
     <title>Document</title>
   </head>
   <body>
-    {% for show in show_data %}
-    <button id="{{show.ID}}" class="shows">{{show.startTime}}</button>
-    {% endfor %}
+    
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Show start</th>
+        <th>Show end</th>
+      </tr>
+
+      {% for show in show_data %}
+      <tr class="shows" id={{show.ID}}>
+        <td>{{show.ID}}</td>
+        <td>{{show.date}}</td>
+        <td>{{show.startTime}}</td>
+        <td>{{show.endTime}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    
     <script src="..\static\js\shows.js"></script>
   </body>
 </html>

@@ -1,6 +1,8 @@
-from flask import Flask,render_template, request
+from flask import Flask,render_template, request,jsonify
 from database import Database
 from mongo import MongoDatabase
+import os
+import google.generativeai as genai
 from flask import jsonify
 
 app = Flask(__name__)
@@ -8,9 +10,32 @@ RDB = Database("data.db")
 NRDB = MongoDatabase()
 print("Lamao")
 
+genai.configure(api_key ='AIzaSyApR7UKfZ-Jlo3YLZhKvFF3jQo720PpRCk')
+model = genai.GenerativeModel('gemini-pro')
+chat = model.start_chat()
+
+def send_to_chatbot():
+    print('message sent to chatbot')
+
 @app.route("/")
 def login():
     return render_template('login.html')
+
+@app.route("/chatbot")
+def chatbotpage():
+    # send_to_chatbot()
+    return render_template("chatbot.html")
+
+@app.route("/getchatbotresponse", methods=['POST'])
+def getchatbotresponse():
+    message = request.json["message"]
+    response = chat.send_message(message).candidates[0].content.parts[0].text
+    return jsonify({"response": response})
+
+def generate_content(message):
+    global chat
+    return chat.send_message(message).candidates[0].content.parts[0].text
+
 
 @app.route("/adminLogin")
 def adminLogin():
