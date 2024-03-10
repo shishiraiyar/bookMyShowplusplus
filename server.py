@@ -11,6 +11,104 @@ print("Lamao")
 def login():
     return render_template('login.html')
 
+@app.route("/adminLogin")
+def adminLogin():
+    return render_template('adminLogin.html')
+
+@app.route("/admin")
+def adminPage():
+    theatres = RDB.getAllTheatres()
+    movies = RDB.getMoviesList()
+    screens=RDB.getScreens()
+    return render_template('adminPage.html',theatres=theatres,movies=movies,screens=screens)
+
+@app.route("/validateAdmin", methods=["POST"])
+def validateAdmin():
+    #send to db
+    email = request.form.get("email")
+    password = request.form.get("pwd") 
+    print(email)
+    print(password)
+    result = NRDB.validateAdmin(email,password)
+    print(result)
+    if(result==True):
+        return adminPage()
+    else:
+        return ('',204)
+    # return ('',204)
+
+@app.route("/addMovie", methods=["POST"])
+def addMovie():
+    name = request.form.get("name")
+    description = request.form.get("description") 
+    cast = request.form.get("cast") 
+    rating = float(request.form.get("rating")) 
+    duration = int(request.form.get("duration") )
+    print(name+" "+description+" "+cast)
+    print(rating)
+    print(duration)
+    RDB.insertMovie(name,description,cast,rating,duration)
+    return ('',204)
+
+@app.route("/addScreen", methods=["POST"])
+def addScreen():
+    rows = request.form.get("rows")
+    cols = request.form.get("cols") 
+    t_id = int(request.form.get("theatre")) 
+    print(rows+" "+cols)
+    print(t_id)
+    RDB.insertScreen(rows,cols,t_id)
+    
+    return ('',204)
+
+@app.route("/addMovieShow", methods=["POST"])
+def addMovieShow():
+    startTime = request.form.get("startTime")
+    endTime = request.form.get("endTime") 
+    date = request.form.get("date") 
+    movie = int(request.form.get("movie")) 
+    screen = int(request.form.get("screen") )
+    print(startTime+" "+endTime+" "+date)
+    print(movie)
+    print(screen)
+    RDB.insertMovieShow(startTime,endTime,date,movie,screen)
+    
+    return ('',204)
+
+@app.route("/addTheatre", methods=["POST"])
+def addTheatre():
+    name = request.form.get("name")
+    operatingSince = request.form.get("operatingSince") 
+    latitude = request.form.get("latitude") 
+    longitude = request.form.get("longitude")
+    address = request.form.get("address") 
+    print(name+" "+operatingSince+" "+latitude+" "+longitude+" "+address)
+    RDB.insertTheatre(name,operatingSince,latitude,longitude,address)
+    return ('',204)
+
+@app.route("/validateUser", methods=["POST"])
+def validateUser():
+    #send to db
+    email = request.form.get("email")
+    password = request.form.get("pwd") 
+    print(email)
+    print(password)
+    result = NRDB.validate(email,password)
+    if(result==True):
+        return homepage()
+    else:
+        return ('',204)
+
+@app.route("/signUp", methods=["POST"])
+def signUp():
+    #send to db
+    email = request.form.get("email")
+    username= request.form.get("username")
+    password = request.form.get("pwd") 
+    print(email+" "+username+" "+password)
+    NRDB.addUser(email,username,password)
+    return ('',204)
+
 @app.route("/home")
 def homepage():
     movies =RDB.getMoviesList() #list of dictionary ; each dictionary is a movie

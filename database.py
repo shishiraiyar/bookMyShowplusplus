@@ -1,5 +1,5 @@
 import sqlite3
-
+from mongo import MongoDatabase
 # db = sqlite3.connect("data.db")
 
 # def deleteDB(db: sqlite3.Connection)
@@ -9,7 +9,7 @@ import sqlite3
 class Database:
     def __init__(self, filename):
         self.db = sqlite3.connect(filename,check_same_thread=False)
-    
+        self.NRDB = MongoDatabase()
     def createTables(self):
         cur = self.db.cursor()
         cur.execute("""
@@ -152,9 +152,26 @@ class Database:
     
     def insertMovieShow(self, startTime, endTime, date, movieID, screenID):
         cur = self.db.cursor()
-        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, endTime, date , movie_ID, screen_ID)
+        cur.execute(f"""INSERT INTO MOVIESHOW (startTime, endTime, date, movie_ID, screen_ID)
                         VALUES ('{startTime}', '{endTime}', '{date}','{movieID}', '{screenID}')""")
         self.db.commit()
+
+        showID = cur.lastrowid
+        print(showID)
+
+        cur.execute("""SELECT rows, columns
+                    FROM SCREEN
+                    WHERE ID=?""", (screenID,))
+        data = cur.fetchone()
+        rows = data[0]
+        cols = data[1]
+        seats = [[0 for _ in range(cols)] for _ in range(rows)]
+
+        # Print the 2D array
+        for row in seats:
+            print(row)
+
+        self.NRDB.insert(showID,seats)
         cur.close()
 
     def insertTicket(self, showID, userID, row, col, ticketClass):
@@ -182,6 +199,41 @@ class Database:
 
         cur.close()
         return movies
+    
+    def getAllTheatres(self):
+        cur=self.db.cursor()
+        cur.execute("""SELECT * 
+                    FROM THEATRE""")
+        rows=cur.fetchall()
+        theatres=[]
+        for row in rows:
+            theatre = {
+                'ID':row[0],
+                'name':row[1],
+                'operatingSince':row[2],
+                'latitude':row[3],
+                'longitude':row[4],
+                'address':row[5]
+            }
+            theatres.append(theatre)
+        cur.close()
+        return theatres
+    
+    def getScreens(self):
+        cur=self.db.cursor()
+        cur.execute("""SELECT S.ID,T.name,T.ID
+                    FROM (SCREEN AS S JOIN THEATRE AS T ON S.theatre_ID=T.ID) """)
+        rows=cur.fetchall()
+        screens=[]
+        for row in rows:
+            screen = {
+                'SID':row[0],
+                'theatre_name':row[1],
+                'TID':row[2]
+            }
+            screens.append(screen)
+        cur.close()
+        return screens
     
     def getTheatres(self,mID):
         cur=self.db.cursor()
@@ -260,13 +312,15 @@ class Database:
 if __name__ == "__main__":
 
     databej = Database("data.db")
-    # databej.createTables()
+    databej.createTables()
     
-    # databej.populateDummyData()
+    databej.populateDummyData()
 
-    # databej.displayDatabase()
-    print(databej.getTheatres(4))
-    shows=databej.getMovieShows(2,1)
-    print(shows)
+    databej.displayDatabase()
+    # print(databej.getTheatres(4))
+    # shows=databej.getMovieShows(2,1)
+    # print(shows)
+    # print(databej.getAllTheatres())
+    # print(databej.getScreens())
 
     
