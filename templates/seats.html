@@ -28,7 +28,9 @@
         {% for j in range(col) %}
         <td>
           {% if seatMatrix[i][j] == 0 %}
-          <button id="{{ (i * col) + j }}" class="seats">0</button>
+          <button id="{{ 'seat-' + i|string + '-' + j|string }}" class="seats">
+            0
+          </button>
           {% else %} {{ seatMatrix[i][j] }} {% endif %}
         </td>
         {% endfor %}

@@ -284,10 +284,10 @@ class Database:
         
         
     def populateDummyData(self):
-        self.insertMovie("3 idiots", "Engineering", "Amir Khan", 9.3, 120)
-        self.insertMovie("4 idiots", "More idiots more better", "Srk", 9.4, 180)
-        self.insertMovie("Oppenheimer", "bomb", "Robert Oppenheimer", 9.5, 190)
-        self.insertMovie("Barbie", "pink", "girl", 9.45, 130)
+        self.insertMovie("3 idiots", "In college, Farhan and Raju form a great bond with Rancho due to his refreshing outlook. Years later, a bet gives them a chance to look for their long-lost friend whose existence seems rather elusive.", "Amir Khan, Sharman Joshi, R.Madhavan, Kareena Kapoor....", 9.3, 120)
+        self.insertMovie("Bhool Bhulaiyaa", "An NRI and his wife decide to stay in his ancestral home, paying no heed to the warnings about ghosts. Soon, inexplicable occurrences cause him to call a psychiatrist to help solve the mystery.", "Akshay Kumar, Rajpal Yadav, Vidya Balan, Paresh Rawal....", 9.4, 180)
+        self.insertMovie("Oppenheimer", "During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the worlds first nuclear explosion, forever changing the course of history.", "Cilian Murphy, Florence Pugh, Emily Blunt, Robert Downey Jr....", 9.5, 190)
+        self.insertMovie("Barbie", "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.", "Margot Robbie, Ryan Gosling, Will Ferrel, Emma Mackey....", 9.45, 130)
 
         self.insertTheatre("PVR", "Yesterday", 12.97, 77.59,  "R R Nagar")
         self.insertTheatre("Inox", "Tomorrow", 12.98, 77.60,  "Rajaji Nagar")
@@ -297,8 +297,8 @@ class Database:
         self.insertScreen(rows=9, cols=9, t_id=2)
         self.insertScreen(rows=6, cols=6, t_id=2)
 
-        self.insertUser(154, "Library", "Table", "1234567890", "12/12/2012")
-        self.insertUser(178, "Wiggly", "Bunny", "3003003003", "11/11/2011")
+        # self.insertUser(154, "Library", "Table", "1234567890", "12/12/2012")
+        # self.insertUser(178, "Wiggly", "Bunny", "3003003003", "11/11/2011")
 
         self.insertMovieShow(startTime="12:30", endTime="13:45", date="2024-03-08", movieID=2, screenID=1)
         self.insertMovieShow(startTime="13:45", endTime="14:30", date="2024-05-03", movieID=2, screenID=2)

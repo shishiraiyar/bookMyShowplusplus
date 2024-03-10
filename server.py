@@ -1,6 +1,7 @@
 from flask import Flask,render_template, request
 from database import Database
 from mongo import MongoDatabase
+from flask import jsonify
 
 app = Flask(__name__)
 RDB = Database("data.db")
@@ -136,6 +137,24 @@ def showSeats(show_ID):
     row=len(seatMatrix)
     col=len(seatMatrix[0])
     return render_template('seats.html',seatMatrix=seatMatrix,row=row,col=col)
+
+@app.route('/book_ticket', methods=['POST'])
+def book_ticket():
+    data = request.json
+    showID = int(data.get('showID'))
+    row = int(data.get('row'))
+    col = int(data.get('col'))
+    print(type(showID))
+    print(row)
+    print(col)
+    NRDB.update(showID,row,col)
+    # Do something with the row and col (e.g., mark the seat as booked)
+    # seatMatrix[row][col] = 1
+
+    # You can perform additional logic here
+
+    result = {'message': 'Ticket booked successfully'}
+    return jsonify(result)
 
 @app.route("/bookTicket/<seatNo>", methods=['POST'])
 def bookTicket():

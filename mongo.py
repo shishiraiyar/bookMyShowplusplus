@@ -29,10 +29,14 @@ class MongoDatabase:
         doc = {"_id":showID,"seatMatrix":seats}
         self.col.insert_one(doc)
 
-    def update(self,showID,seats):
-        query={"_id":showID}
-        newvalues = { "$set": { "seatMatrix": seats } }
-        self.col.update_one(query,newvalues)     
+    def update(self,showID,row,col):
+        doc = self.getSeats(showID)
+        if doc is not None:
+            seats=doc["seatMatrix"]
+            seats[row][col] = 1
+            query={"_id":showID}
+            newvalues = { "$set": { "seatMatrix": seats } }
+            self.col.update_one(query,newvalues)     
 
     def addDummyData(self):
         matrix=[[0,1,0],[1,0,1],[0,0,0]]
@@ -77,14 +81,14 @@ if __name__ == "__main__":
     # database.addUser("tavashikumar.cs21@rvce.edu.in","tavashi","hello")
     # print(database.validate("tavashikumar.cs21@rvce.edu.in","hello"))
     # print(database.validate("tavashikumar.cs21@rvce.edu.in","hellorwrw"))
-    print(database.validateAdmin("tavashi123@gmail.com","hello123"))
+    # print(database.validateAdmin("tavashi123@gmail.com","hello123"))
 
 
-    # database.displayDatabase()
+    database.displayDatabase()
 
     # update seat for a given show
     # matrix=[[1,1,1],[1,0,1],[0,0,0]]
-    # database.update(1,matrix)
+    # database.update(1,0,0)
 
     # fetching seat info given a particular showID
     # info = database.getSeats(3)
