@@ -4,7 +4,7 @@ from pymongo.server_api import ServerApi
 
 class MongoDatabase:
     def __init__(self):
-        url = "mongodb+srv://shishiraiyar:jyotishetty@cluster0.nfgzye6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+        url = "mongodb+srv://shishiraiyar:shishiraiyar@cluster0.nfgzye6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
         # Create a new client and connect to the server
         self.client = MongoClient(url, server_api=ServerApi('1'))
         self.db = self.client["MovieApp"] 
