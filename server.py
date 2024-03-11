@@ -4,6 +4,7 @@ from mongo import MongoDatabase
 import os
 import google.generativeai as genai
 from flask import jsonify
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 app = Flask(__name__)
 RDB = Database("data.db")
@@ -15,14 +16,46 @@ model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat()
 
 def send_to_chatbot():
+    context = """
+                You are a chatbot designed to give information acquired from the database below when users ask for it
+                """
+    
+    movies = f"""
+                The following movies are in the database:
+                {RDB.getMoviesList()}
+            """
+    theatres = f"""
+                The following theatres are in the database:
+                {RDB.getAllTheatres()}
+                """
+    
+    shows = """"""
     message1 = """the following movies are in the database currently: 
                 Name=3 idiots, Description=In college, Farhan and Raju form a great bond with Rancho due to his refreshing outlook. Years later, a bet gives them a chance to look for their long-lost friend whose existence seems rather elusive, Cast=Amir Khan, Sharman Joshi, R.Madhavan, Kareena Kapoor, Rating=9.3, Duration= 120 minutes;
                 Name=Bhool Bhulaiyaa, Description=An NRI and his wife decide to stay in his ancestral home, paying no heed to the warnings about ghosts. Soon, inexplicable occurrences cause him to call a psychiatrist to help solve the mystery, Cast=Akshay Kumar, Rajpal Yadav, Vidya Balan, Paresh Rawal, Rating=9.4, Duration=180 minutes;
                 Name= Oppenheimer, Description=During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the worlds first nuclear explosion, forever changing the course of history, Cast=Cilian Murphy, Florence Pugh, Emily Blunt, Robert Downey Jr,Rating= 9.5,Duration= 190 minutes;
                 Name=Barbie, Description=Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans, Cast=Margot Robbie, Ryan Gosling, Will Ferrel, Emma Mackey, Rating=9.45, Duration= 130 minutes
                 """
-    chat.send_message(message1)
+    generate_content(context + movies + theatres)
     print('message sent to chatbot')
+
+
+def generate_content(message):
+    global chat
+    config = {
+        "max_output_tokens": 2048,
+        "temperature": 0.5,
+        "top_p": 1
+    }
+    safety_settings={
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+    }
+    return chat.send_message(message, 
+                             generation_config=config, 
+                             safety_settings=safety_settings
+                             ).candidates[0].content.parts[0].text
+
 
 @app.route("/")
 def login():
@@ -36,12 +69,9 @@ def chatbotpage():
 @app.route("/getchatbotresponse", methods=['POST'])
 def getchatbotresponse():
     message = request.json["message"]
-    response = chat.send_message(message).candidates[0].content.parts[0].text
+    response = generate_content(message)
     return jsonify({"response": response})
 
-def generate_content(message):
-    global chat
-    return chat.send_message(message).candidates[0].content.parts[0].text
 
 
 @app.route("/adminLogin")
@@ -188,13 +218,6 @@ def book_ticket():
     result = {'message': 'Ticket booked successfully'}
     return jsonify(result)
 
-@app.route("/bookTicket/<seatNo>", methods=['POST'])
-def bookTicket():
-    data = request.json
-    print(data)
-    # data contains showid, row, col, userid
-    # add an entry to tickets table 
-    # mark the seat as booked in mongo
-    # return success popup or something
+
 
 app.run(host="0.0.0.0", port=5000, debug=True)

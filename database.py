@@ -283,6 +283,25 @@ class Database:
         return shows
         
         
+    def getAllTheatres(self):
+        cur=self.db.cursor()
+        cur.execute("""SELECT * FROM THEATRE""")
+        rows=cur.fetchall()
+        theatres=[]
+        for row in rows:
+            theatre = {
+                'ID':row[0],
+                'name':row[1],
+                'operatingSince':row[2],
+                'latitude':row[3],
+                'longitude':row[4],
+                'address':row[5]
+            }
+            theatres.append(theatre)
+        cur.close()
+        return theatres
+
+
     def populateDummyData(self):
         self.insertMovie("3 idiots", "In college, Farhan and Raju form a great bond with Rancho due to his refreshing outlook. Years later, a bet gives them a chance to look for their long-lost friend whose existence seems rather elusive.", "Amir Khan, Sharman Joshi, R.Madhavan, Kareena Kapoor....", 9.3, 120)
         self.insertMovie("Bhool Bhulaiyaa", "An NRI and his wife decide to stay in his ancestral home, paying no heed to the warnings about ghosts. Soon, inexplicable occurrences cause him to call a psychiatrist to help solve the mystery.", "Akshay Kumar, Rajpal Yadav, Vidya Balan, Paresh Rawal....", 9.4, 180)
