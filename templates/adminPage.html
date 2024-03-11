@@ -3,94 +3,129 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+
     <title>Document</title>
   </head>
   <body>
     <form action="/addMovie" method="post">
-      <label for="name">Movie name:</label>
-      <input type="text" id="name" name="name" /><br /><br />
+      <h2>Add Movie</h2>
+      <div class="form-group">
+        <label for="name">Movie Name</label>
+        <input type="text" class="form-control" id="name" name="name"  >
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" name="description">
+        <label for="cast">Cast</label>
+        <input type="text" id="cast" name="cast" class="form-control" />
+  
+        <label for="rating">Rating:</label>
+        <input type="text" id="rating" name="rating" class="form-control" />
+  
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" class="form-control" />         
+      </div>
+      <input type="submit" value="Submit" class="btn btn-primary"/>
 
-      <label for="description">Description:</label>
-      <input type="text" id="description" name="description" /><br /><br />
-
-      <label for="cast">Cast:</label>
-      <input type="text" id="cast" name="cast" /><br /><br />
-
-      <label for="rating">Rating:</label>
-      <input type="text" id="rating" name="rating" /><br /><br />
-
-      <label for="duration">Duration:</label>
-      <input type="text" id="duration" name="duration" /><br /><br />
-
-      <input type="submit" value="Submit" />
     </form>
-
-    <form action="/addScreen" method="post">
-      <label for="rows">Rows:</label>
-      <input type="text" id="rows" name="rows" /><br /><br />
-
-      <label for="cols">Columns:</label>
-      <input type="text" id="cols" name="cols" /><br /><br />
-
-      <label for="theatre">Choose a theatre:</label>
-      <select id="theatre" name="theatre">
-        {% for theatre in theatres %}
-        <option value="{{theatre.ID}}">{{theatre.name}}</option>
-        {% endfor %}
-      </select>
-
-      <input type="submit" value="Submit" />
-    </form>
-
-    <form action="/addMovieShow" method="post">
-      <label for="startTime">Start Time:</label>
-      <input type="text" id="startTime" name="startTime" /><br /><br />
-
-      <label for="endTime">End Time:</label>
-      <input type="text" id="endTime" name="endTime" /><br /><br />
-
-      <label for="date">Date:</label>
-      <input type="text" id="date" name="date" /><br /><br />
-
-      <label for="movie">Choose a movie:</label>
-      <select id="movie" name="movie">
-        {% for movie in movies %}
-        <option value="{{movie.ID}}">{{movie.title}}</option>
-        {% endfor %}
-      </select>
-
-      <label for="screen">Choose a screen:</label>
-      <select id="screen" name="screen">
-        {% for screen in screens %}
-        <option value="{{screen.SID}}">
-          {{screen.SID}} {{screen.theatre_name}}
-        </option>
-        {% endfor %}
-      </select>
-      <input type="submit" value="Submit" />
-    </form>
+    
+    <hr />
+    <hr />
 
     <form action="/addTheatre" method="post">
-      <label for="name">Theatre name:</label>
-      <input type="text" id="name" name="name" /><br /><br />
+      <h2>Add theatre</h2>
+      <div class="form-group">
+        <label for="name">Theatre name</label>
+        <input type="text" id="name" name="name" class="form-control"/>
+  
+        <label for="operatingSince">Operating Since</label>
+        <input
+          type="date"
+          id="operatingSince"
+          name="operatingSince"
+          class="form-control"
+        />
+  
+        <label for="latitude">Latitude</label>
+        <input type="text" id="latitude" name="latitude" class="form-control"/>
+  
+        <label for="longitude">Longitude</label>
+        <input type="text" id="longitude" name="longitude" class="form-control"/>
+  
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" class="form-control"/>
 
-      <label for="operatingSince">operatingSince:</label>
-      <input
-        type="text"
-        id="operatingSince"
-        name="operatingSince"
-      /><br /><br />
-
-      <label for="latitude">latitude:</label>
-      <input type="text" id="latitude" name="latitude" /><br /><br />
-
-      <label for="longitude">longitude:</label>
-      <input type="text" id="longitude" name="longitude" /><br /><br />
-
-      <label for="address">address:</label>
-      <input type="text" id="address" name="address" /><br /><br />
-
-      <input type="submit" value="Submit" />
+      </div>
+      <input type="submit" value="Submit" class="btn btn-primary"/>
     </form>
+
+    <hr />
+    <hr />
+
+
+    <form action="/addScreen" method="post">
+      <h2>Add screen</h2>
+      <div class="form-group">
+        <label for="rows">Rows:</label>
+        <input type="text" id="rows" name="rows"  class="form-control"/>
+  
+        <label for="cols">Columns:</label>
+        <input type="text" id="cols" name="cols"  class="form-control"/>
+  
+        <label for="theatre">Choose a theatre</label>
+        <select id="theatre" name="theatre" class="form-control">
+          {% for theatre in theatres %}
+          <option value="{{theatre.ID}}">{{theatre.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <input type="submit" value="Submit" class="btn btn-primary"/>
+    </form>
+
+    <hr />
+    <hr />
+
+    <form action="/addMovieShow" method="post">
+      <h2>Add Show</h2>
+      <div class="form-group">
+        <label for="startTime">Start Time</label>
+        <input type="time" id="startTime" name="startTime"  class="form-control"/>
+  
+        <label for="endTime">End Time</label>
+        <input type="time" id="endTime" name="endTime"  class="form-control"/>
+  
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date"  class="form-control"/>
+  
+        <label for="movie">Choose a movie</label>
+        <select id="movie" name="movie" class="form-control">
+          {% for movie in movies %}
+          <option value="{{movie.ID}}">{{movie.title}}</option>
+          {% endfor %}
+        </select>
+  
+        <label for="screen">Choose a screen</label>
+        <select id="screen" name="screen" class="form-control">
+          {% for screen in screens %}
+          <option value="{{screen.SID}}">
+            {{screen.SID}} {{screen.theatre_name}}
+          </option>
+          {% endfor %}
+        </select>
+
+      </div>
+      <input type="submit" value="Submit" class="btn btn-primary"/>
+    </form>
+
+    <hr />
+    <hr />
+    
+
+
   </body>
 </html>

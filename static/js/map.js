@@ -62,8 +62,7 @@ const marker = new google.maps.Marker({
 
   createInfoWindow(marker, theatre)
 
-// makeInfoWindow(marker, "HELLO")
-// id, name, address, since
+
 
 }
 
