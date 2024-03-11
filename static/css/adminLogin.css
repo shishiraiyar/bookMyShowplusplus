@@ -1,9 +1,14 @@
 body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+form {
+    border: 3px solid #f1f1f1;
+    text-align: center;
+    background-color: rgb(238, 238, 238);
+}
 
 .admin{
     width:100%;
     height:100px;
+    margin-bottom: 0;
     text-align: center;
     background-color: rgb(118, 171, 174);
     font-style: italic;
@@ -14,7 +19,7 @@ form {border: 3px solid #f1f1f1;}
 }
 
 input[type=text], select {
-    width: 50%;
+    width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -23,7 +28,7 @@ input[type=text], select {
     box-sizing: border-box;
   }
   input[type=password], select {
-    width: 50%;
+    width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -39,7 +44,7 @@ input[type="submit"] {
     cursor: pointer;
     border-radius: 20px;
     padding: 15px 30px;
-
+    text-align: center;
 }
 
 input[type="submit"]:hover {
@@ -53,6 +58,7 @@ label {
 }
 
 .submit{
-    background-color: aliceblue;
     text-align: center;
+    width: 30%;
+    padding-left: 35%;
 }
