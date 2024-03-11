@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "-" +
             col
         ); // Display a popup notification
+        window.location.reload()
       })
       .catch((error) => {
         console.error("Error:", error);
