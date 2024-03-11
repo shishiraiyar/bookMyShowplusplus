@@ -4,36 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
+    <link rel="stylesheet" href="../static/css/login.css" />
   </head>
   <body>
     <div>
       <a href="/adminLogin">Admin Login</a>
     </div>
-    <h3>LOGIN</h3>
     <div>
-      <form action="/validateUser" method="post">
-        <label for="email">Enter Email:</label>
-        <input type="text" id="email" name="email" /><br /><br />
-
-        <label for="pwd">Enter Password:</label><br />
-        <input type="password" id="pwd" name="pwd" />
-
-        <input type="submit" value="Submit" />
-      </form>
+      <a href="/chatbot">chatbot</a>
     </div>
-    <h3>SIGN UP</h3>
-    <form action="/signUp" method="post">
-      <label for="email">Enter Email:</label>
-      <input type="text" id="email" name="email" /><br /><br />
+    <div class="idk">
+      <h3>LOGIN</h3>
+      <div class="forms-container">
+        <div class="form-section">
+          <form action="/validateUser" method="post">
+            <label for="email">Enter Email:</label>
+            <input type="text" id="email" name="email" /><br /><br />
 
-      <label for="username">Enter User Name:</label>
-      <input type="text" id="username" name="username" /><br /><br />
+            <label for="pwd">Enter Password:</label><br />
+            <input type="password" id="pwd" name="pwd" />
 
-      <label for="pwd">Enter Password:</label><br />
-      <input type="password" id="pwd" name="pwd" />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="form-section">
+          <h3>SIGN UP</h3>
+          <form action="/signUp" method="post">
+            <label for="email">Enter Email:</label>
+            <input type="text" id="email" name="email" /><br /><br />
 
-      <input type="submit" value="Submit" />
-    </form>
+            <label for="username">Enter User Name:</label>
+            <input type="text" id="username" name="username" /><br /><br />
+
+            <label for="pwd">Enter Password:</label><br />
+            <input type="password" id="pwd" name="pwd" />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+    </div>
 
     <script src="../static/js/login.js"></script>
   </body>

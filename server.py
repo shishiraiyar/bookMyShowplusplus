@@ -15,6 +15,13 @@ model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat()
 
 def send_to_chatbot():
+    message1 = """the following movies are in the database currently: 
+                Name=3 idiots, Description=In college, Farhan and Raju form a great bond with Rancho due to his refreshing outlook. Years later, a bet gives them a chance to look for their long-lost friend whose existence seems rather elusive, Cast=Amir Khan, Sharman Joshi, R.Madhavan, Kareena Kapoor, Rating=9.3, Duration= 120 minutes;
+                Name=Bhool Bhulaiyaa, Description=An NRI and his wife decide to stay in his ancestral home, paying no heed to the warnings about ghosts. Soon, inexplicable occurrences cause him to call a psychiatrist to help solve the mystery, Cast=Akshay Kumar, Rajpal Yadav, Vidya Balan, Paresh Rawal, Rating=9.4, Duration=180 minutes;
+                Name= Oppenheimer, Description=During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the worlds first nuclear explosion, forever changing the course of history, Cast=Cilian Murphy, Florence Pugh, Emily Blunt, Robert Downey Jr,Rating= 9.5,Duration= 190 minutes;
+                Name=Barbie, Description=Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans, Cast=Margot Robbie, Ryan Gosling, Will Ferrel, Emma Mackey, Rating=9.45, Duration= 130 minutes
+                """
+    chat.send_message(message1)
     print('message sent to chatbot')
 
 @app.route("/")
@@ -23,7 +30,7 @@ def login():
 
 @app.route("/chatbot")
 def chatbotpage():
-    # send_to_chatbot()
+    send_to_chatbot()
     return render_template("chatbot.html")
 
 @app.route("/getchatbotresponse", methods=['POST'])

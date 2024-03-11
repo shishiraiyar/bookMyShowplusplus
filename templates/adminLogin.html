@@ -4,17 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login</title>
+    <link rel="stylesheet" href="../static/css/adminLogin.css" />
   </head>
   <body>
     <h3>Admin Login</h3>
-    <form action="/validateAdmin" method="post">
-      <label for="email">Enter Email:</label>
-      <input type="text" id="email" name="email" /><br /><br />
+    <div class="form-container">
+      <form action="/validateAdmin" method="post">
+        <label for="email">Enter Email:</label>
+        <input type="text" id="email" name="email" /><br /><br />
 
-      <label for="pwd">Enter Password:</label><br />
-      <input type="password" id="pwd" name="pwd" />
+        <label for="pwd">Enter Password:</label><br />
+        <input type="password" id="pwd" name="pwd" />
 
-      <input type="submit" value="Submit" />
-    </form>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   </body>
 </html>
