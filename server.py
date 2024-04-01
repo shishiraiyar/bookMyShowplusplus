@@ -11,7 +11,7 @@ RDB = Database("data.db")
 NRDB = MongoDatabase()
 print("Lamao")
 
-genai.configure(api_key ='AIzaSyApR7UKfZ-Jlo3YLZhKvFF3jQo720PpRCk')
+genai.configure(api_key ='AIzaSyCfmt4rrg0L1kEv3_453nK6s_RJEZ3tfkE')
 model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat()
 
