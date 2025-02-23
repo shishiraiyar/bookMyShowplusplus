@@ -6,12 +6,16 @@ import google.generativeai as genai
 from flask import jsonify
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+
 app = Flask(__name__)
 RDB = Database("data.db")
 NRDB = MongoDatabase()
 print("Lamao")
 
-genai.configure(api_key ='AIzaSyAATqp6lsJHLLrcMZnrZveUGx7083TgG9M')
+genai.configure(api_key = config["GEMINI_API_KEY"])
 model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat()
 

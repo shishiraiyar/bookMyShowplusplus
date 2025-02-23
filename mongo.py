@@ -2,9 +2,13 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 # import certifi
 
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+
 class MongoDatabase:
     def __init__(self):
-        url = "mongodb+srv://shishiraiyar:shishiraiyar@cluster0.nfgzye6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+        url = config["MONGO_CONNECTION_STRING"]
         # Create a new client and connect to the server
         self.client = MongoClient(url, server_api=ServerApi('1'))
         self.db = self.client["MovieApp"] 
