@@ -61,9 +61,7 @@ class MongoDatabase:
     def validateAdmin(self,email,password):
         query={"_id":email}
         doc = self.col3.find_one(query)
-        print(password)
         if doc and doc["password"]==password:
-            print("hhhh")
             return True
         else:
             return False

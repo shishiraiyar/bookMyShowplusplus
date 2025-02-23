@@ -11,7 +11,7 @@ RDB = Database("data.db")
 NRDB = MongoDatabase()
 print("Lamao")
 
-genai.configure(api_key ='AIzaSyCfmt4rrg0L1kEv3_453nK6s_RJEZ3tfkE')
+genai.configure(api_key ='AIzaSyAATqp6lsJHLLrcMZnrZveUGx7083TgG9M')
 model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat()
 
@@ -220,4 +220,4 @@ def book_ticket():
 
 
 
-app.run(host="0.0.0.0", port=5000, debug=True)
+app.run(host="0.0.0.0", port=5000, debug=False)
